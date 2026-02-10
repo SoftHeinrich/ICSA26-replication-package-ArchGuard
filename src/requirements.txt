@@ -1,0 +1,22 @@
+# Core data processing
+numpy
+pandas
+
+# Machine Learning - Traditional
+scikit-learn
+xgboost
+imbalanced-learn
+scipy
+
+# Machine Learning - Deep Learning / Transformers
+torch
+transformers
+sentence-transformers
+
+# Natural Language Processing
+nltk
+
+# OpenAI API (for zero-shot LLM classification)
+openai
+
+# Utilities
