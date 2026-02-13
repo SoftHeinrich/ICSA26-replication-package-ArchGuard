@@ -134,6 +134,7 @@ All methods report Accuracy, Precision, Recall, and F1 Score. RoBERTa additional
 ## Documentation
 
 - [Detailed Usage](src/README.md): Full documentation for all experiment scripts and pipelines
+- [Reuse Guide](REUSE.md): Step-by-step instructions for applying ArchGuard to a new software project
 
 ## Architecture
 

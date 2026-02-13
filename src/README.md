@@ -102,6 +102,12 @@ python -m src.classification.cross_project --dry-run
 
 ---
 
+## Applying ArchGuard to a New Project
+
+To apply ArchGuard to your own software project, see the [Reuse Guide](../REUSE.md) for step-by-step instructions covering data preparation, preprocessing, and classification.
+
+---
+
 ## Configuration (`src/classification/dataset_config.py`)
 
 Dataset paths resolve automatically relative to the project root:

@@ -29,7 +29,6 @@ sys.path.insert(0, str(project_root))
 from src.utils.release_utils import detect_subject_system
 from src.utils.rsf_utils import RSFParser, VersionMatcher
 from src.commit.batch_dependency_analyzer import BatchDependencyAnalyzer
-from src.mapper.version_stats import compute_version_stats
 
 
 class ComponentMapper:
@@ -762,24 +761,6 @@ class ComponentMapper:
         print(f"\nComponents:")
         print(f"  Unique components found: {len(summary.get('unique_components', []))}")
         print(f"  RSF files used: {len(summary.get('rsf_files_used', []))}")
-
-        file_results = results.get('file_results', [])
-        if file_results:
-            all_stats = compute_version_stats(file_results, dep_only=False)
-            dep_stats = compute_version_stats(file_results, dep_only=True)
-
-            def _print_stats(label: str, stats: Dict[str, Dict[str, int]]):
-                if not stats:
-                    return
-                print(f"\n{label}:")
-                for version, counts in sorted(stats.items()):
-                    print(
-                        f"  {version}: issues={counts['issues']} "
-                        f"mrs={counts['mrs']} commits={counts['commits']}"
-                    )
-
-            _print_stats("By version (all commits)", all_stats)
-            _print_stats("By version (dependency-change commits)", dep_stats)
 
         if summary.get('mrs_processed', 0) > 0:
             success_rate = (summary.get('mrs_with_components', 0) / summary.get('mrs_processed', 1)) * 100
