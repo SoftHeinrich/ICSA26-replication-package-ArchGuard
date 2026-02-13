@@ -23,7 +23,7 @@ Or clone from Github
 
 ```bash
 git clone https://github.com/SoftHeinrich/ICSA26-replication-package-ArchGuard
-cd archGuard-rep
+cd ICSA26-replication-package-ArchGuard
 ```
 
 ### 2. Install Dependencies
@@ -31,8 +31,14 @@ cd archGuard-rep
 Requires Python 3.14.2. GPU with CUDA support is optional but recommended.
 
 ```bash
+# Option A: Conda (recommended)
 conda env create -f environment.yml
 conda activate di
+
+# Option B: Pip
+pip install -r requirements.txt
+
+# Then download NLTK data
 python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt')"
 ```
 
@@ -135,7 +141,7 @@ Classification performance is assessed using single split train-test or repeated
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ---
 
