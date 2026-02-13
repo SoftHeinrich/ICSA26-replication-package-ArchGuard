@@ -1,0 +1,7 @@
+.git
+.gitignore
+.DS_Store
+.venv/
+venv/
+.env
+.env.*

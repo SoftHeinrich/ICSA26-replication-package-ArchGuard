@@ -7,7 +7,7 @@ All commands run from the **project root** using `python -m src.` module syntax.
 ```bash
 conda env create -f environment.yml
 conda activate di
-python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt')"
+python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt'); nltk.download('punkt_tab')"
 ```
 
 Optional environment variables:

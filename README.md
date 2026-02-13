@@ -26,23 +26,44 @@ git clone https://github.com/SoftHeinrich/ICSA26-replication-package-ArchGuard
 cd ICSA26-replication-package-ArchGuard
 ```
 
-### 2. Install Dependencies
+### 2. Prepare Data
+
+Download `data-output.zip` from the Figshare link above and extract it into the project root:
+
+```bash
+unzip data-output.zip -d data-output
+```
+
+This creates the `data-output/` folder with the classification datasets and smell evolution data used by all experiments.
+
+### 3. Install Dependencies
 
 Requires Python 3.14.2. GPU with CUDA support is optional but recommended.
 
 ```bash
-# Option A: Conda (recommended)
+# Conda
 conda env create -f environment.yml
 conda activate di
 
-# Option B: Pip
+# Or Pip
 pip install -r requirements.txt
 
-# Then download NLTK data
-python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt')"
+# Download NLTK data
+python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt'); nltk.download('punkt_tab')"
 ```
 
-### 3. Run an Experiment
+### Docker
+
+Alternatively, use Docker for a self-contained environment with all dependencies pre-installed:
+
+```bash
+docker build -t icsa26 .
+docker run -it --rm --gpus=all icsa26
+```
+
+The container drops into a bash shell at the project root, ready to run experiments. Remove `--gpus=all` if no GPU is available.
+
+### 4. Run an Experiment
 
 All commands run from the **project root** using `python -m`:
 
@@ -87,7 +108,7 @@ python -m src.casestudy.zero_shot_all --projects inkscape --detectors acdc --tex
 ```
 
 > [!NOTE]
-> Use `--dry-run` with any experiment script to preview configurations without running them.
+> Use `--dry-run` with `finetune_all` and `cross_project` to preview configurations without running them.
 
 ### Configuration
 
