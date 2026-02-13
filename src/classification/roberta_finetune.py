@@ -717,7 +717,7 @@ def _run_single_dataset(data_path: Path, args: argparse.Namespace) -> None:
         eval_steps = max(10, len(train_dataset) // (args.batch_size * 4))  # Evaluate 4 times per epoch
         training_args = TrainingArguments(
             output_dir=str(fold_checkpoint_dir),
-            evaluation_strategy="steps" if args.early_stopping else "no",
+            eval_strategy="steps" if args.early_stopping else "no",
             eval_steps=eval_steps if args.early_stopping else None,
             save_strategy="steps" if args.early_stopping else "no",
             save_steps=eval_steps if args.early_stopping else None,
@@ -728,7 +728,7 @@ def _run_single_dataset(data_path: Path, args: argparse.Namespace) -> None:
             per_device_eval_batch_size=args.batch_size,
             learning_rate=args.learning_rate,
             weight_decay=args.weight_decay,
-            warmup_ratio=args.warmup_ratio,
+            warmup_steps=int(args.warmup_ratio * args.epochs * (len(train_dataset) // args.batch_size)),
             logging_steps=25,
             save_total_limit=1,
             seed=args.seed + fold_num,  # Different seed per fold
@@ -755,7 +755,7 @@ def _run_single_dataset(data_path: Path, args: argparse.Namespace) -> None:
         trainer = Trainer(
             model=model,
             args=training_args,
-            tokenizer=tokenizer,
+            processing_class=tokenizer,
             data_collator=data_collator,
             train_dataset=train_dataset,
             eval_dataset=val_dataset if args.early_stopping else None,

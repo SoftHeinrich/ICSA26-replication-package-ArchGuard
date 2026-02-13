@@ -587,6 +587,9 @@ def evaluate_model_repeated_cv(
             # Compute metrics
             accuracy = accuracy_score(y_test, y_pred)
             precision, recall, f1, _ = precision_recall_fscore_support(y_test, y_pred, labels=[1])
+            precision = precision[0]
+            recall = recall[0]
+            f1 = f1[0]
 
             # Store all metrics
             model_accuracies.append(float(accuracy))
@@ -602,7 +605,7 @@ def evaluate_model_repeated_cv(
             y_pred_random = random_fold.predict(X_test)
 
             _, _, random_f1, _ = precision_recall_fscore_support(y_test, y_pred_random, labels=[1])
-            random_f1s.append(float(random_f1))
+            random_f1s.append(float(random_f1[0]))
 
             if trial_num % max(1, total_trials // 5) == 0:
                 print(f"    Trial {trial_num}/{total_trials}: Acc={float(accuracy):.3f}, P={float(precision):.3f}, R={float(recall):.3f}, F1={float(f1):.3f}")
@@ -680,7 +683,8 @@ def evaluate_model_repeated_cv(
 def _compute_basic_metrics(y_true, y_pred):
     accuracy = accuracy_score(y_true, y_pred)
     precision, recall, f1, _ = precision_recall_fscore_support(y_true, y_pred, labels=[1])
-    return float(accuracy), float(precision), float(recall), float(f1)
+    # metrics are 1-element arrays when labels=[1]
+    return float(accuracy), float(precision[0]), float(recall[0]), float(f1[0])
 
 
 def evaluate_model_single_split(model, X, y, model_name, encoding_name, strategies):
@@ -1454,12 +1458,16 @@ def run_traditional_ml_experiments(
 
         # Use batch encoding and GPU for SBERT methods
         if encoding_name.startswith('sbert_'):
+            try:
+                sbert_batch_size = int(os.getenv("SBERT_BATCH_SIZE", "128"))
+            except ValueError:
+                sbert_batch_size = 128
             X, encoder = encode_texts(
                 texts, encoding_name,
                 data_path=data_path,
                 text_source=normalized_text_source,
                 max_words=256,
-                batch_size=128,
+                batch_size=sbert_batch_size,
                 show_progress=True
             )
         else:
@@ -1511,10 +1519,10 @@ def run_traditional_ml_experiments(
                 all_results.extend(single_results)
                 for res in single_results:
                     print(f"  Strategy: {res['strategy']}")
-                    print(f"    Test Results: F1={res['test_f1']:.3f}, "
-                          f"Recall={res['test_recall']:.3f}, "
-                          f"Precision={res['test_precision']:.3f}, "
-                          f"Accuracy={res['test_accuracy']:.3f}")
+                    print(f"    Test Results: F1={res['f1_mean']:.3f}, "
+                          f"Recall={res['recall_mean']:.3f}, "
+                          f"Precision={res['precision_mean']:.3f}, "
+                          f"Accuracy={res['accuracy_mean']:.3f}")
 
     # Save results
     results_df = pd.DataFrame(all_results)
@@ -1563,20 +1571,20 @@ def run_traditional_ml_experiments(
     else:
         print("\n=== SINGLE SPLIT SUMMARY ===")
         print("Single 85/15 train/test split; all strategies evaluated separately")
-        summary_cols = ['test_f1', 'test_recall', 'test_precision', 'test_accuracy', 'strategy']
+        summary_cols = ['f1_mean', 'recall_mean', 'precision_mean', 'accuracy_mean', 'strategy']
         available_cols = [col for col in summary_cols if col in results_df.columns]
 
         print("\nResults by encoding and model:")
-        summary = results_df[['encoding', 'model'] + available_cols].sort_values('test_f1', ascending=False)
+        summary = results_df[['encoding', 'model'] + available_cols].sort_values('f1_mean', ascending=False)
         print(summary.to_string(index=False))
 
         # Best performing combinations by test F1 score
         print("\nTop 10 model/encoding combinations by Test F1 Score:")
         display_cols = ['encoding', 'model', 'strategy',
-                        'test_f1', 'test_recall', 'test_precision']
+                        'f1_mean', 'recall_mean', 'precision_mean']
         available_display = [col for col in display_cols if col in results_df.columns]
 
-        top_f1 = results_df.nlargest(10, 'test_f1')[available_display]
+        top_f1 = results_df.nlargest(10, 'f1_mean')[available_display]
         print(top_f1.to_string(index=False))
 
     return results_df
@@ -1604,7 +1612,7 @@ Examples:
     parser.add_argument(
         'data_path',
         nargs='?',
-        default='src/test/simple_analysis_results/final_clean_classification_data.json',
+        default='data-output/Output/supervised_ml_all/run/inkscape_acdc/data/classification/inkscape/classification_data_clean.json',
         help='Path to JSON data file (default: %(default)s)'
     )
 

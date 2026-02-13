@@ -15,7 +15,7 @@ pip install -r requirements.txt
 python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt')"
 ```
 
-## 3. Configure Data Path (30 seconds)
+## 3. Configure Data Path
 
 Edit `classification/dataset_config.py` and update `DATASET_BASE_DIR` to point to your data:
 
@@ -23,9 +23,9 @@ Edit `classification/dataset_config.py` and update `DATASET_BASE_DIR` to point t
 DATASET_BASE_DIR = Path("/path/to/your/data")
 ```
 
-## 4. Run Your First Experiment (2-30 minutes depending on method)
+## 4. Run Your First Experiment
 
-### Option A: Quick Traditional ML Test
+### Option A: Quick Traditional ML Test (sentence-bert encoding is speeded up by GPU)
 ```bash
 python -m casestudy.classification_pipeline_all \
   --methods traditional_ml \
@@ -35,7 +35,6 @@ python -m casestudy.classification_pipeline_all \
   --ml-models logistic_regression \
   --imbalance-strategies none
 ```
-**Time:** ~2 minutes
 
 ### Option B: RoBERTa Fine-tuning (requires GPU)
 ```bash
@@ -46,7 +45,6 @@ python -m casestudy.finetune_all \
   --epochs 3 \
   --dry-run  # Remove --dry-run to actually run
 ```
-**Time:** ~30 minutes with GPU
 
 ### Option C: Zero-shot LLM (requires OpenAI API key)
 ```bash
@@ -58,18 +56,10 @@ python -m casestudy.zero_shot_all \
   --text-source description \
   --model gpt-5-mini
 ```
-**Time:** ~5-10 minutes depending on dataset size
 
 ## 5. View Results
 
-Results are saved to `Output/` directory with timestamped subdirectories:
-- `Output/comprehensive_classification/{timestamp}/` - Pipeline results
-- `Output/hf_roberta_batch/{timestamp}/` - Fine-tuning results
-- `Output/zero_shot_runs/{timestamp}/` - Zero-shot results
-
-Look for:
-- `*_summary.csv` - Quick overview of metrics
-- `*_summary.json` or `summary.json` - Detailed results
+Results are saved to `Output/` directory with timestamped subdirectories.
 
 ## Common Commands
 
@@ -90,7 +80,7 @@ python -m casestudy.finetune_all --projects inkscape
 python -m casestudy.zero_shot_all --projects shepard stackgres
 ```
 
-### Run All Combinations (WARNING: Very slow!)
+### Run All Combinations
 ```bash
 # Fine-tune all configurations
 python -m casestudy.finetune_all
@@ -102,23 +92,5 @@ python -m casestudy.zero_shot_all
 python -m casestudy.classification_pipeline_all
 ```
 
-## Troubleshooting
-
-**Import Error:** Make sure you're in the parent directory of `src-rep`:
-```bash
-cd /path/to/parent
-python -m src-rep.casestudy.finetune_all  # If src-rep is a package
-# OR
-cd src-rep
-python -m casestudy.finetune_all  # Run from inside src-rep
-```
-
-**Data Not Found:** Update `DATASET_BASE_DIR` in `classification/dataset_config.py`
-
-**GPU Memory Error:** Reduce batch size: `--batch-size 4`
-
-**OpenAI API Error:** Check your API key: `echo $OPENAI_API_KEY`
-
----
 
 For more details, see the full [README.md](README.md)

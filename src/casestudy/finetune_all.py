@@ -156,7 +156,7 @@ def run_single_finetune(
     try:
         # Construct command to call roberta_finetune.py
         cmd = [
-            sys.executable, "-m", "classification.roberta_finetune",
+            sys.executable, "-m", "src.classification.roberta_finetune",
             str(config.data_path),
             "--text-source", config.text_source,
             "--model", model_name,

@@ -7,9 +7,12 @@ and src/casestudy/zero_shot_all.py to ensure consistency.
 
 from pathlib import Path
 
+# Project root: two levels up from this file (src/classification/ -> project root)
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+
 # Dataset base directory (uses supervised_ml_all output structure)
 # Note: Changed from timestamp to "run" for privacy
-DATASET_BASE_DIR = Path("Output/supervised_ml_all/run")
+DATASET_BASE_DIR = _PROJECT_ROOT / "data-output" / "Output" / "supervised_ml_all" / "run"
 
 # Classification data filename
 CLASSIFICATION_DATA_FILENAME = "classification_data_clean.json"

@@ -1,22 +1,24 @@
 # Core data processing
-numpy
-pandas
+numpy==2.4.1
+pandas==2.3.3
 
 # Machine Learning - Traditional
-scikit-learn
-xgboost
-imbalanced-learn
-scipy
+scikit-learn==1.8.0
+xgboost==3.1.2
+imbalanced-learn==0.14.1
+scipy==1.16.3
 
 # Machine Learning - Deep Learning / Transformers
-torch
-transformers
-sentence-transformers
+torch==2.9.1
+transformers==5.1.0
+accelerate==1.12.0
+sentence-transformers==5.2.2
 
 # Natural Language Processing
-nltk
+nltk==3.9.2
 
 # OpenAI API (for zero-shot LLM classification)
 openai
 
 # Utilities
+tqdm==4.67.1
