@@ -1,7 +1,7 @@
 # ArchGuard
 
 Welcome to the ArchGuard replication package!
-This framework analyze software issue reports to find those are inducing architectural smells.
+This framework analyzes software issue reports to find those that are inducing architectural smells.
 Based on the analysis, it trains models that can classify unseen issues based on title and description, using three complementary machine learning approaches: traditional ML, RoBERTa fine-tuning, and zero-shot LLM classification.
 
 The approach and evaluation are detailed in our paper:
@@ -40,22 +40,44 @@ python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt')"
 
 All commands run from the **project root** using `python -m`:
 
+#### Traditional ML
+
 ```bash
-# Traditional ML (default: inkscape/ACDC)
+# inkscape / ACDC (default)
 python -m src.classification.simple_ml
-
-# Traditional ML (specific dataset)
+# shepard / ACDC
 python -m src.classification.simple_ml data-output/Output/supervised_ml_all/run/shepard_acdc/data/classification/dlr-shepard-shepard/classification_data_clean.json
+# shepard / ARCAN
+python -m src.classification.simple_ml data-output/Output/supervised_ml_all/run/shepard_arcan/data/classification/dlr-shepard-shepard/classification_data_clean.json
+# stackgres / ACDC
+python -m src.classification.simple_ml data-output/Output/supervised_ml_all/run/stackgres_acdc/data/classification/ongresinc-stackgres/classification_data_clean.json
+# stackgres / ARCAN
+python -m src.classification.simple_ml data-output/Output/supervised_ml_all/run/stackgres_arcan/data/classification/ongresinc-stackgres/classification_data_clean.json
+```
 
-# RoBERTa fine-tuning
-python -m src.casestudy.finetune_all --projects inkscape --detectors acdc --text-sources description
+#### RoBERTa Fine-tuning
 
-# Zero-shot LLM (requires OpenAI API key)
+```bash
+# All project-detector-text_source combinations
+python -m src.casestudy.finetune_all
+# Preview without running
+python -m src.casestudy.finetune_all --dry-run
+```
+
+#### Cross-Project Leave-One-Out
+
+```bash
+# All detectors, all encodings
+python -m src.classification.cross_project --text-source description
+# Preview without running
+python -m src.classification.cross_project --dry-run
+```
+
+#### Zero-Shot LLM (requires OpenAI API key)
+
+```bash
 export OPENAI_API_KEY="your-key-here"
 python -m src.casestudy.zero_shot_all --projects inkscape --detectors acdc --text-source description
-
-# Cross-project leave-one-out evaluation
-python -m src.classification.cross_project --text-source description --detector acdc
 ```
 
 > [!NOTE]
@@ -67,19 +89,13 @@ python -m src.classification.cross_project --text-source description --detector 
 - **Text sources**: `description` (title + description), `combined` (+ filtered discussion)
 - **Data format**: JSON arrays of `{"description": "...", "label": "smell_category"}`
 
-For zero-shot classification, set your OpenAI API key:
-```bash
-export OPENAI_API_KEY="your-key-here"
-```
-
-
 ### Results
 
-Results are saved to `Output/` with timestamped subdirectories:
+Results are saved with per-model metrics:
 
 | Method | Output Location |
 |--------|----------------|
-| Traditional ML | `Output/supervised_ml_all/` | 
+| Traditional ML | `ml_results_*.csv` (current directory) |
 | RoBERTa | `Output/hf_roberta_batch/{timestamp}/` |
 | Zero-shot LLM | `Output/zero_shot_runs/{timestamp}/` |
 | Cross-project | `data-output/cross_project_loo/{timestamp}/` |

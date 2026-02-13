@@ -14,6 +14,9 @@ transformers==5.1.0
 accelerate==1.12.0
 sentence-transformers==5.2.2
 
+# Statistics
+statsmodels==0.14.6
+
 # Natural Language Processing
 nltk==3.9.2
 

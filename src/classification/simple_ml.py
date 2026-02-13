@@ -1598,14 +1598,14 @@ if __name__ == "__main__":
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Basic usage (single 85/15 train/test split)
-  python simple_ml.py data.json
+  # Basic usage (default: inkscape/ACDC, single 85/15 train/test split)
+  python -m src.classification.simple_ml
+
+  # Specific dataset
+  python -m src.classification.simple_ml data-output/Output/supervised_ml_all/run/shepard_acdc/data/classification/dlr-shepard-shepard/classification_data_clean.json
 
   # Title + description + filtered discussion
-  python simple_ml.py data.json --text-source combined
-
-  # Specify output file
-  python simple_ml.py data.json --output results.csv --text-source combined
+  python -m src.classification.simple_ml --text-source combined
         """
     )
 

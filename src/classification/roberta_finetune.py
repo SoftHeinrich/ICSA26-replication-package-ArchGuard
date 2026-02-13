@@ -1054,7 +1054,7 @@ def parse_args() -> argparse.Namespace:
         "--model",
         "-m",
         # default="roberta-large",
-        default="deroberta-v3-large",
+        default="roberta-base",
         help="Hugging Face model name or path to fine-tune.",
     )
     parser.add_argument(

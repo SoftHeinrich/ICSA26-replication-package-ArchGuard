@@ -2,95 +2,65 @@
 
 This guide will get you running experiments in 5 minutes.
 
-## 1. Install Dependencies (1 minute)
+## 1. Install Dependencies
 
 ```bash
-cd src-rep
-pip install -r requirements.txt
-```
-
-## 2. Download NLTK Data (first-time only)
-
-```python
+conda env create -f environment.yml
+conda activate di
 python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt')"
 ```
 
-## 3. Configure Data Path
+## 2. Run Your First Experiment
 
-Edit `classification/dataset_config.py` and update `DATASET_BASE_DIR` to point to your data:
+All commands run from the **project root**.
 
-```python
-DATASET_BASE_DIR = Path("/path/to/your/data")
-```
+### Traditional ML (fastest)
 
-## 4. Run Your First Experiment
-
-### Option A: Quick Traditional ML Test (sentence-bert encoding is speeded up by GPU)
 ```bash
-python -m casestudy.classification_pipeline_all \
-  --methods traditional_ml \
-  --projects inkscape \
-  --text-sources description \
-  --encoding-methods tfidf \
-  --ml-models logistic_regression \
-  --imbalance-strategies none
+# inkscape / ACDC (default)
+python -m src.classification.simple_ml
+# shepard / ACDC
+python -m src.classification.simple_ml data-output/Output/supervised_ml_all/run/shepard_acdc/data/classification/dlr-shepard-shepard/classification_data_clean.json
+# shepard / ARCAN
+python -m src.classification.simple_ml data-output/Output/supervised_ml_all/run/shepard_arcan/data/classification/dlr-shepard-shepard/classification_data_clean.json
+# stackgres / ACDC
+python -m src.classification.simple_ml data-output/Output/supervised_ml_all/run/stackgres_acdc/data/classification/ongresinc-stackgres/classification_data_clean.json
+# stackgres / ARCAN
+python -m src.classification.simple_ml data-output/Output/supervised_ml_all/run/stackgres_arcan/data/classification/ongresinc-stackgres/classification_data_clean.json
 ```
 
-### Option B: RoBERTa Fine-tuning (requires GPU)
+### RoBERTa Fine-tuning (requires GPU)
+
 ```bash
-python -m casestudy.finetune_all \
-  --projects inkscape \
-  --detectors acdc \
-  --text-sources description \
-  --epochs 3 \
-  --dry-run  # Remove --dry-run to actually run
+# All project-detector-text_source combinations
+python -m src.casestudy.finetune_all
+# Preview without running
+python -m src.casestudy.finetune_all --dry-run
 ```
 
-### Option C: Zero-shot LLM (requires OpenAI API key)
+### Cross-Project Leave-One-Out
+
+```bash
+# All detectors, all encodings
+python -m src.classification.cross_project --text-source description
+# Preview without running
+python -m src.classification.cross_project --dry-run
+```
+
+### Zero-Shot LLM (requires OpenAI API key)
+
 ```bash
 export OPENAI_API_KEY="your-key-here"
-
-python -m casestudy.zero_shot_all \
-  --projects inkscape \
-  --detectors acdc \
-  --text-source description \
-  --model gpt-5-mini
+python -m src.casestudy.zero_shot_all --projects inkscape --detectors acdc --text-source description
 ```
 
-## 5. View Results
+## 3. View Results
 
-Results are saved to `Output/` directory with timestamped subdirectories.
+| Method | Output Location |
+|--------|----------------|
+| Traditional ML | `ml_results_*.csv` (current directory) |
+| RoBERTa | `Output/hf_roberta_batch/{timestamp}/` |
+| Zero-shot LLM | `Output/zero_shot_runs/{timestamp}/` |
+| Cross-project | `data-output/cross_project_loo/{timestamp}/` |
 
-## Common Commands
-
-### Dry Run (Preview without Running)
-```bash
-# See what would be executed
-python -m casestudy.finetune_all --dry-run
-python -m casestudy.zero_shot_all --dry-run
-python -m casestudy.classification_pipeline_all --dry-run
-```
-
-### Filter to Specific Projects
-```bash
-# Run only inkscape
-python -m casestudy.finetune_all --projects inkscape
-
-# Run only shepard and stackgres
-python -m casestudy.zero_shot_all --projects shepard stackgres
-```
-
-### Run All Combinations
-```bash
-# Fine-tune all configurations
-python -m casestudy.finetune_all
-
-# Zero-shot all configurations
-python -m casestudy.zero_shot_all
-
-# ALL methods (traditional ML + RoBERTa + zero-shot)
-python -m casestudy.classification_pipeline_all
-```
-
-
-For more details, see the full [README.md](README.md)
+For more details, see the full [README.md](../README.md).
