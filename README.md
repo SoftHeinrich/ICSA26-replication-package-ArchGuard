@@ -17,7 +17,7 @@ The approach and evaluation are detailed in our paper:
 
 ### 1. Clone the Repository
 
-You can download from figshare link https://figshare.com/s/70fd438d3664229d2b27 
+You can download from figshare link https://doi.org/10.6084/m9.figshare.30833303   
 
 Or clone from Github
 
