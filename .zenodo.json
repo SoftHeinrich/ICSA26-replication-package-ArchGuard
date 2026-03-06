@@ -1,0 +1,50 @@
+{
+  "title": "Replication package for ICSA26 paper: Architecture in the Cradle: Early Prevention of Architectural Decay with ArchGuard",
+  "description": "Replication package for ICSA26 paper: Architecture in the Cradle: Early Prevention of Architectural Decay with ArchGuard. This framework analyzes software issue reports to find those that are inducing architectural smells. Based on the analysis, it trains models that can classify unseen issues using three complementary machine learning approaches: traditional ML, RoBERTa fine-tuning, and zero-shot LLM classification. See README.md for details.",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Liu, Haoyu",
+      "affiliation": "Karlsruhe Institute of Technology (KIT)"
+    },
+    {
+      "name": "Fuchß, Dominik",
+      "affiliation": "Karlsruhe Institute of Technology (KIT)"
+    },
+    {
+      "name": "Corallo, Sophie",
+      "affiliation": "Karlsruhe Institute of Technology (KIT)"
+    },
+    {
+      "name": "Keim, Jan",
+      "affiliation": "Karlsruhe Institute of Technology (KIT)"
+    },
+    {
+      "name": "Hey, Tobias",
+      "affiliation": "Karlsruhe Institute of Technology (KIT)"
+    }
+  ],
+  "keywords": [
+    "Large Language Models",
+    "Software Architecture",
+    "Automated Software Engineering",
+    "Architectural Smells",
+    "Replication Package"
+  ],
+  "license": {
+    "id": "MIT"
+  },
+  "grants": [
+    {
+      "id": "10.13039/501100001659::501798263"
+    }
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.6084/m9.figshare.30833303",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    }
+  ],
+  "notes": "This work was funded by Core Informatics at KIT (KiKIT) of the Helmholtz Association (HGF) and the German Research Foundation (DFG) - SFB 1608 - 501798263 and supported by KASTEL Security Research Labs."
+}
