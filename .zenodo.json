@@ -5,22 +5,31 @@
   "creators": [
     {
       "name": "Liu, Haoyu",
+      "orcid": "0009-0002-7676-5010",
       "affiliation": "Karlsruhe Institute of Technology (KIT)"
     },
     {
       "name": "Fuchß, Dominik",
+      "orcid": "0000-0001-6410-6769",
       "affiliation": "Karlsruhe Institute of Technology (KIT)"
     },
     {
       "name": "Corallo, Sophie",
+      "orcid": "0000-0002-1531-2977",
+      "affiliation": "Karlsruhe Institute of Technology (KIT)"
+    },
+    {
+      "name": "Hummel, Maximilian",
       "affiliation": "Karlsruhe Institute of Technology (KIT)"
     },
     {
       "name": "Keim, Jan",
+      "orcid": "0000-0002-8899-7081",
       "affiliation": "Karlsruhe Institute of Technology (KIT)"
     },
     {
       "name": "Hey, Tobias",
+      "orcid": "0000-0003-0381-1020",
       "affiliation": "Karlsruhe Institute of Technology (KIT)"
     }
   ],
