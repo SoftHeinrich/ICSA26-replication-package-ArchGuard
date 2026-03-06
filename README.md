@@ -161,6 +161,11 @@ ArchGuard has been evaluated on three open-source systems using two architectura
 
 Classification performance is assessed using single split train-test or repeated stratified k-fold cross-validation (2 repeats x 5 folds) with Wilcoxon signed-rank tests against random baselines.
 
+## Acknowledgements
+
+This work was funded by the Topic Engineering Secure Systems of the Helmholtz Association (HGF) and by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) under the National Research Data Infrastructure -- NFDI 52/1 -- project number 501930651, NFDIxCS and under - SFB 1608 - 501798263.
+It was also supported by funding from the pilot program Core Informatics at KIT (KiKIT) of the Helmholtz Association (HGF) and by KASTEL Security Research Labs.
+
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.

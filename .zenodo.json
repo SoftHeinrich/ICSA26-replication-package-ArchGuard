@@ -37,6 +37,9 @@
   "grants": [
     {
       "id": "10.13039/501100001659::501798263"
+    },
+    {
+      "id": "10.13039/501100001659::501930651"
     }
   ],
   "related_identifiers": [
@@ -46,5 +49,5 @@
       "scheme": "doi"
     }
   ],
-  "notes": "This work was funded by Core Informatics at KIT (KiKIT) of the Helmholtz Association (HGF) and the German Research Foundation (DFG) - SFB 1608 - 501798263 and supported by KASTEL Security Research Labs."
+  "notes": "This work was funded by the Topic Engineering Secure Systems of the Helmholtz Association (HGF) and by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) under the National Research Data Infrastructure -- NFDI 52/1 -- project number 501930651, NFDIxCS and under - SFB 1608 - 501798263. It was also supported by funding from the pilot program Core Informatics at KIT (KiKIT) of the Helmholtz Association (HGF) and by KASTEL Security Research Labs."
 }
