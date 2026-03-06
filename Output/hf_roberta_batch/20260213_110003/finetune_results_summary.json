@@ -1,0 +1,16 @@
+[
+  {
+    "project": "shepard",
+    "detector": "acdc",
+    "text_source": "description",
+    "run_name": "shepard_acdc_description",
+    "issue_f1_mean": 0.0,
+    "issue_f1_std": 0.0,
+    "chunk_f1_mean": 0.0,
+    "chunk_f1_std": 0.0,
+    "n_folds": 2,
+    "run_dir": "",
+    "success": false,
+    "error": "Subprocess failed: Command '['/home/yu/miniconda3/envs/di/bin/python', '-m', 'src.classification.roberta_finetune', '/home/yu/project/archGuard-rep/data-output/Output/supervised_ml_all/run/shepard_acdc/data/classification/dlr-shepard-shepard/classification_data_clean.json', '--text-source', 'description', '--model', 'roberta-base', '--chunk-words', '256', '--max-length', '512', '--batch-size', '12', '--epochs', '1', '--learning-rate', '2e-05', '--weight-decay', '0.01', '--warmup-ratio', '0.06', '--n-splits', '2', '--n-repeats', '1', '--seed', '42', '--issue-aggregation', 'vote', '--output-dir', 'Output/hf_roberta_batch/20260213_110003']' returned non-zero exit status 1."
+  }
+]

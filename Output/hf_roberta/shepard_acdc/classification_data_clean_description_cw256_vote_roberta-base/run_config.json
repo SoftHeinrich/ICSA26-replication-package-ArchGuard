@@ -1,0 +1,20 @@
+{
+  "data_path": "/home/yu/project/archGuard-rep/data-output/Output/supervised_ml_all/run/shepard_acdc/data/classification/dlr-shepard-shepard/classification_data_clean.json",
+  "text_source": "description",
+  "model": "roberta-base",
+  "chunk_words": 256,
+  "max_chunks_per_issue": null,
+  "issue_aggregation": "vote",
+  "max_length": 512,
+  "batch_size": 12,
+  "epochs": 1,
+  "learning_rate": 2e-05,
+  "weight_decay": 0.001,
+  "early_stopping": false,
+  "early_stopping_patience": 5,
+  "warmup_ratio": 0.06,
+  "n_splits": 2,
+  "n_repeats": 1,
+  "output_dir": null,
+  "seed": 42
+}
