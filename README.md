@@ -22,8 +22,8 @@ You can download from figshare link https://doi.org/10.6084/m9.figshare.30833303
 Or clone from Github
 
 ```bash
-git clone https://github.com/SoftHeinrich/ICSA26-replication-package-ArchGuard
-cd ICSA26-replication-package-ArchGuard
+git clone https://github.com/ardoco/archGuard-rep
+cd archGuard-rep
 ```
 
 ### 2. Prepare Data
